@@ -1,0 +1,10 @@
+from pygame import Color
+import pygame
+
+
+class Being:
+    moves = 1
+    def __init__(self,moves):
+        self.moves = moves
+    def move():
+        pass

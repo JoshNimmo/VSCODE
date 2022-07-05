@@ -1,0 +1,49 @@
+from ctypes import sizeof
+from operator import truediv
+from re import X
+import re
+import pygame
+
+
+class Tile:
+    Occupied = None
+    x = 0
+    y = 0
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def getX(self) -> int:
+        return self.x
+    def getY(self) -> int:
+        return self.y
+
+class Board: 
+    board = []
+    size = 0
+    windowSize = 0
+    def __init__(self,size,windowSize):
+        self.windowSize = windowSize
+        self.size = size
+        for x in range(size):
+            self.board.append([])
+            for y in range(size):
+                self.board[x].append(Tile(x,y))
+    
+    def draw(self):
+        pygame.init()
+        screen = pygame.display.set_mode((self.windowSize,self.windowSize))
+        running = True
+        space =  self.windowSize/self.size
+        for x in range(self.size-1):
+            pygame.draw.line(screen,pygame.Color(255,255,255),(space*(x+1),self.windowSize),(space*(x+1),0))
+            pygame.draw.line(screen,pygame.Color(255,255,255),(self.windowSize,space*(x+1)),(0,space*(x+1)))
+        while running:
+            pygame.display.flip()
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    running=False
+                    pygame.quit()
+b =  Board(20,600)
+b.draw()
+
+
