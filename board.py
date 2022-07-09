@@ -19,9 +19,9 @@ class Board:
             self.board.append([])
             for y in range(size):
                 self.board[x].append(tile.Tile(x,y))
-        for x in range(size):
-            for y  in range(size): 
-                self.board[x][y].adj = self.getAdj(x,y)
+        #for x in range(size):
+            #for y  in range(size): 
+                #self.board[x][y].adj = self.getAdj(x,y)
     def draw(self):
         pygame.init()
         screen = pygame.display.set_mode((self.windowSize,self.windowSize))
@@ -38,8 +38,9 @@ class Board:
                 if event.type==pygame.QUIT:
                     running=False
             for person in self.occupied:
+                self.board[person.x][person.y].occupied = False
                 screen.blit(black,(person.x*space+1,person.y*space+1))
-                person.move(self.getAdj(person.x,person.y))
+                person.move(self.getAdj(person.x,person.y)).occupied = True
                 pygame.draw.rect(screen,pygame.Color(0,0,255),pygame.Rect(person.x*space+1,person.y*space+1,space-2,space-2))
             pygame.display.flip()
         pygame.quit()
@@ -48,14 +49,19 @@ class Board:
     def getAdj(self,x,y)->List:
         re = []
         if(x !=0 ):
-            re.append(self.board[x-1][y])
+            if(not self.board[x-1][y].occupied):
+                re.append((self.board[x-1][y]))
         if(y !=0 ):
-            re.append(self.board[x][y-1])
+            if(not self.board[x][y-1].occupied):
+                re.append((self.board[x][y-1]))
         if(x != self.size-1):
-            re.append(self.board[x+1][y])
+            if(not self.board[x+1][y].occupied):
+                re.append((self.board[x+1][y]))
         if(y != self.size-1):
-            re.append(self.board[x][y+1])
+            if(not self.board[x][y+1].occupied):
+                re.append((self.board[x][y+1]))
         return re
+   
 #b =  Board(20,600)
 #b.draw()
 

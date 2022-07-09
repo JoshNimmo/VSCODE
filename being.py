@@ -15,6 +15,7 @@ class Being:
         self.x = x
         self.y = y
     def move(self,moves)->tile.Tile:
+        #print(moves)
         tile = random.choice(moves)
         self.updatePos(tile.x,tile.y)
         return tile

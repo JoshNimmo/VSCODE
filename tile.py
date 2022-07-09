@@ -1,5 +1,5 @@
 class Tile:
-    Occupied = None
+    occupied = False
     x = 0
     y = 0
     adj = []
